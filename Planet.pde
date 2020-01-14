@@ -20,12 +20,12 @@ class Planet{
 void spawnMoons(int total, int level)
 {
 planets = new Planet[total];
-  println(total);
+ // println(total);
 if(planets!=null){
 for(int i=0; i<planets.length;i++){
   float r = radius*0.6;
   float d = random(100,200);
-  println(r);
+  //println(r);
   float o = random (0.01, 0.02);
 planets[i]= new Planet(r,d,o);
 if(level<3)
