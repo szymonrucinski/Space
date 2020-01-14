@@ -1,36 +1,40 @@
-//import ddf.minim.*;
+import ddf.minim.*;
+import processing.sound.*;
+import ddf.minim.effects.*;
 
-//AudioPlayer player;
-//Minim minim;//audio context
 
+Minim minim;
+AudioPlayer player;
+FFT fft;
+AudioIn in;
+int bands = 512;
 Mesh mesh;
 Planet planet;
 Planet planet1;
 Planet planet2;
 Planet planet3;
+
 float x = 1;
 int spawn =1;
 int R = 100;
-      void mousePressed() {
-        spawn = spawn +1;
-      }
-      
-       
-      
-      
-      void keyPressed() {
-      x= x +0.1;
-        }
-      
-      
+
       
       
 
 void setup()
 {
     size(800,600, P3D);
-    smooth();
-    mesh = new Mesh ();
+    Minim minim = new Minim(this);
+    player = minim.loadFile("song.mp3");
+      fft = new FFT(this, bands);
+      in = new AudioIn(this, 0);
+      in.start();
+      // p
+      fft.input(in);
+    
+    //Plan
+   
+    mesh = new Mesh(player);
     /////////////////////
     planet = new Planet(50,10,0);
     planet.spawnMoons(1,1);
@@ -42,15 +46,11 @@ void setup()
     planet2 = new Planet(30,10,0);
     planet2.spawnMoons(1,3);
    
-    Planet planet3;
-    planet3 = new Planet(spawn,10,0);
+    //Planet planet3;
+    //planet3 = new Planet(spawn,10,0);
 }
-
-void draw(){
-  if(x>6)
-{background(0,0,0);
-}
-//pushMatrix();
+public void draw(){
+  player.play();
 translate(width/2,height/2);
 mesh.show();
 //popMatrix();
@@ -68,29 +68,25 @@ popMatrix();
 translate((width-600)/2,height/2,20);
 planet1.show();
 planet1.orbit();
-popMatrix();    
-      
 
-  pushMatrix();
 translate((width+400)/2,height/2,20);
 planet2.show();
 planet2.orbit();
+
 popMatrix();    
 
+    float leftLevel = player.left.level()*25; 
 
+     mesh.shakex = (int)leftLevel *3;
+     planet.shakex = (int)leftLevel* 5;
 
-beginCamera();
+    beginCamera();
 camera();
-x = x + 0.005;
-println(x);
-//translate(R*cos(x),R*sin(x), R*sin(x));
-//if((x/sin(x))<TWO_PI){
-rotateX(sin(exp(x/2)));
+//x = x + 0.005;
+//rotateX(leftLevel);
+//translate(sin());
 endCamera();
-  
-      if(x>6)
-      {
-      planet.spawnMoons(50,0);
-      }
-
+ 
 }
+
+      

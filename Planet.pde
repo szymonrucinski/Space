@@ -3,6 +3,7 @@ class Planet{
   float distance;
   float angle = random(3*TWO_PI);
   float orbitSpeed = random(0.0001,0.0002);
+  public int shakex =15;
   
    final int red = (int)random(0,255);
     final int green = (int)random(0,255);
@@ -56,9 +57,14 @@ void show()
  // printArray(planets);
  rotate (angle);
 translate(distance,0);
-stroke(red,green,blue);
-sphereDetail(15);
-shininess(15.0);
+//stroke(red,green,blue);
+//lightSpecular(red, green, blue);
+fill(red,blue,green);
+stroke(255,255,255);
+
+noStroke();
+//sphereDetail(15);
+//shininess(15.0);
 sphere(radius);
 //printArray(planets);
 if(planets != null)
