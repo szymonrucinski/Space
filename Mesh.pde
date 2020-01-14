@@ -40,7 +40,7 @@ void show()
 
                              stroke(0,255,255);
                              fill(255,0);
-                           background(255,255,255);
+                           background(0,0,82);
                             //star.shix();
   
               for(int y=0;y<cols;y++){

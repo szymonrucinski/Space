@@ -1,8 +1,9 @@
 import ddf.minim.*;
 import processing.sound.*;
 import ddf.minim.effects.*;
+import peasy.*;
 
-
+PeasyCam cam;
 Minim minim;
 AudioPlayer player;
 FFT fft;
@@ -13,6 +14,7 @@ Planet planet;
 Planet planet1;
 Planet planet2;
 Planet planet3;
+int moveX =20, moveY=40, moveZ=60;
 
 float x = 1;
 int spawn =1;
@@ -48,10 +50,17 @@ void setup()
    
     //Planet planet3;
     //planet3 = new Planet(spawn,10,0);
+  
+     cam = new PeasyCam(this, height/2,width/20,50,50);
+     cam.setMinimumDistance(50);
+  cam.setMaximumDistance(500);
+
 }
 public void draw(){
+
   player.play();
 translate(width/2,height/2);
+
 mesh.show();
 //popMatrix();
 
@@ -80,13 +89,48 @@ popMatrix();
      mesh.shakex = (int)leftLevel *3;
      planet.shakex = (int)leftLevel* 5;
 
-    beginCamera();
-camera();
-//x = x + 0.005;
-//rotateX(leftLevel);
-//translate(sin());
-endCamera();
+
+pushMatrix();
+    keyPressed();
+        translate(moveZ,moveX,moveY);
+    box(20);
+    box(10, 5, 50);
+popMatrix();
  
 }
 
+void keyPressed()
+{
+  if (keyPressed) {
+    if (key == 'm' || key == 'M') 
+    {
+      player.pause();
+    }
+     if (key == 'p' || key == 'P') 
+    {
+      player.play();
+    }
+    
+     if (keyCode == UP)
+    {
+      moveX = moveX-1;
+      
+    }
+    if(keyCode == DOWN)
+    {
+            moveX=moveX+1;
+
+    }
+     if (keyCode == LEFT)
+    {
+      moveZ= moveZ-1;
+      
+    }
+    if(keyCode == RIGHT)
+    {
+            moveZ=moveZ+1;
+
+    }
+  }
+}
       
