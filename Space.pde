@@ -82,8 +82,11 @@ pushMatrix();
      translate(moveZ, moveX,moveY);
      rotateZ(radians(rotation));
      println(radians(rotation));
-     box(20);
+     pushMatrix();
+     box(20);    // rotateY(PI/2);
+
      box(10, 5, 50);
+     popMatrix();
 popMatrix(); 
 }
 
@@ -98,6 +101,10 @@ void keyPressed()
      if (key == 'p' || key == 'P') 
     {
       player.play();
+    }
+     if (key == '0') 
+    {
+      rotation=0;
     }
      if (keyCode == UP)
     {
